@@ -1,0 +1,98 @@
+/*
+ * array elements required
+  'type'
+  'name'
+  'placeholder'
+  'value'
+  'class'
+ */
+
+function create_input_field($request) {
+    $inputField    = '';
+    $type          = (isset($request['type'])) ? $request['type'] : 'text';
+    $name          = (isset($request['name'])) ? $request['name'] : '';
+    $placeholder   = (isset($request['placeholder'])) ? $request['placeholder'] : $name;
+    $value         = (isset($request['value'])) ? $request['value'] : '';
+    $class         = (isset($request['class'])) ? ' '.$request['class'] : '';
+    $id         = (isset($request['id'])) ? ' '.$request['id'] : '';
+    $extraProperty = (isset($request['extraProperty'])) ? $request['extraProperty'] : '';
+
+    $clubsNames = array(" " => "None", "Knolwood" => "Knolwood", "Merion" => "Merion", "Wilmington" => "Wilmington", "Phil Crickets" => "Phil Crickets");
+
+    $listData = (isset($request['listData'])) ? $request['listData'] : $clubsNames;
+
+    switch ($type) {
+        case 'text':
+        case 'email':
+        case 'date':
+   
+            $inputField = "<input type='{$type}' name='{$name}' id='{$name}' value='{$value}' class='regular-text{$class}' placeholder='{$placeholder}' {$extraProperty}>";
+
+            break;
+        case 'hidden':
+            $inputField = "<input type='{$type}' name='{$name}' id='{$name}' value='{$value}' {$extraProperty}>";
+
+            break;
+        case 'option':
+            $inputField = "<label for='{$name}'>{$placeholder}</label>"
+                    . "<select name='{$name}' id='{$name}' class='{$class}' {$extraProperty}> " . "<option value=' ' selected='selected'>Select Club</option> ";
+            foreach ($listData as $key => $option) {
+                $selected = ($value == $key) ? "selected='selected'" : '';
+                $inputField .= "<option {$selected} value='{$key}'>{$option}</option>";
+            }
+            $inputField .= "</select>";
+
+            break;
+
+        default:
+            $inputField = "";
+            break;
+    }
+    return $inputField;
+  
+}
+
+//for states list
+function create_input_states_field($request) {
+    $inputField    = '';
+    $type          = (isset($request['type'])) ? $request['type'] : 'text';
+    $name          = (isset($request['name'])) ? $request['name'] : '';
+    $placeholder   = (isset($request['placeholder'])) ? $request['placeholder'] : $name;
+    $value         = (isset($request['value'])) ? $request['value'] : '';
+    $class         = (isset($request['class'])) ? ' '.$request['class'] : '';
+    $id         = (isset($request['id'])) ? ' '.$request['id'] : '';
+    $extraProperty = (isset($request['extraProperty'])) ? $request['extraProperty'] : '';
+
+    $clubsNames = array(" " => "None", "Knolwood" => "Knolwood", "Merion" => "Merion", "Wilmington" => "Wilmington", "Phil Crickets" => "Phil Crickets");
+
+   $listData = (isset($request['listData'])) ? $request['listData'] : $clubsNames;
+
+    switch ($type) {
+        case 'text':
+        case 'email':
+        case 'date':
+            $inputField = "<input type='{$type}' name='{$name}' id='{$name}' value='{$value}' class='regular-text{$class}' placeholder='{$placeholder}' {$extraProperty}>";
+
+            break;
+        case 'hidden':
+            $inputField = "<input type='{$type}' name='{$name}' id='{$name}' value='{$value}' {$extraProperty}>";
+
+            break;
+        case 'option':
+            $inputField = "<label for='{$name}'>{$placeholder}</label>"
+                    . "<select name='{$name}' id='{$name}' class='{$class}' {$extraProperty}> " . "<option value=' ' selected='selected'>Select State</option> ";
+            foreach ($listData as $key => $option) {
+                $selected = ($value == $key) ? "selected='selected'" : '';
+                $inputField .= "<option {$selected} value='{$key}'>{$option}</option>";
+            }
+            $inputField .= "</select>";
+
+            break;
+
+        default:
+            $inputField = "";
+            break;
+    }
+    return $inputField;
+  
+}
